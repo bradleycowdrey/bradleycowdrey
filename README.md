@@ -77,8 +77,6 @@ Started career in systems engineering.
 - **Harvard Business School** — OPM 49 (2015–2017)
 - **UNC** — BS (1994–1998)
 - CEO of 14 fast-growing technology companies
-- Board Member, Denver Rescue Mission (2011–2016)
-- Board of Governors, Metro Denver EDC (2008–2010)
 - 24K+ LinkedIn followers
 
 ## Connect
