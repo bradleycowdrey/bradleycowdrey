@@ -7,29 +7,40 @@
 
 <p>
   <a href="https://bradcowdrey.com"><img src="https://img.shields.io/badge/bradcowdrey.com-0E0D0B?style=flat-square&logoColor=FBF9F5" alt="bradcowdrey.com"></a>
+  <a href="https://eveoy.com"><img src="https://img.shields.io/badge/Eveoy-BC754F?style=flat-square&logoColor=FBF9F5" alt="Eveoy"></a>
+  <a href="https://kyee.ai"><img src="https://img.shields.io/badge/Kyee_AI-BC754F?style=flat-square&logoColor=FBF9F5" alt="Kyee AI"></a>
   <a href="https://www.linkedin.com/in/cowdrey/"><img src="https://img.shields.io/badge/LinkedIn-BC754F?style=flat-square&logo=linkedin&logoColor=FBF9F5" alt="LinkedIn"></a>
   <a href="https://x.com/bradcowdrey"><img src="https://img.shields.io/badge/X-BC754F?style=flat-square&logo=x&logoColor=FBF9F5" alt="X"></a>
-  <a href="https://www.instagram.com/bradleycowdrey/"><img src="https://img.shields.io/badge/Instagram-BC754F?style=flat-square&logo=instagram&logoColor=FBF9F5" alt="Instagram"></a>
 </p>
 
-<sub>BUSINESS, TECHNOLOGY &amp; WHAT COMES NEXT</sub>
+### 👋 Great to have you here.
 
-### I’m building Eveoy. Let’s help you build bigger, too.
-
-**Great to have you here.** I’m the co-founder and CEO of [Eveoy](https://eveoy.com). The idea is simple: click a button and get customers in-store to experience your brand, sample, buy, try, and take photos in-store.
+I’m the co-founder and CEO of [**Eveoy**](https://eveoy.com). The idea is simple: click a button and get customers in-store to experience your brand, sample, buy, try, and take photos in-store.
 
 Along the way, thousands of AI questions have landed in my DMs and inbox. I love helping, and I have Eveoy to run. So I’m putting that advice into practical posts and my book, helping more of you get more from the AI tools you already use.
 
-**[Visit bradcowdrey.com ↗](https://bradcowdrey.com)**
-
 ---
 
-<sub>COMING NEXT</sub>
+<sub>WHAT I’M WORKING ON</sub>
 
-### Keep going. I’ll help you get there.
+### Building Eveoy. Sharing what helps.
 
-- **AI Skills Bible** · *Coming soon on Amazon and Gumroad.* The concepts, skills, and routines to keep close as you learn and put AI to work.
-- **[Kyee AI](https://kyee.ai)** · *Live at kyee.ai.* Practical AI skills from me and turnkey help from our partner, from your first useful prompt to more capable everyday work.
+- 🛍️ **[Eveoy](https://eveoy.com)** · Real customers for your brand, on demand. In-store and online. Pay for results.
+- 📘 **AI Skills Bible** · My book. The concepts, skills, and routines to keep close as you put AI to work. *Coming soon on Amazon and Gumroad.*
+- 🧰 **[Kyee AI](https://kyee.ai)** · Practical AI skills from me, with turnkey help from our partner. *Live now.*
+- ✍️ **[Ideas & lessons](https://bradcowdrey.com/#notes)** · Plain explanations for people with a business to run.
+
+<sub>WHAT YOU’LL FIND HERE</sub>
+
+The practical side: AI skills, prompts, and small tools I use myself and share as they’re ready. An **AI skill** is a reusable set of instructions that helps AI do a specific job. Learn it once, adapt it to your business, and use it again.
+
+<sub>THE QUESTIONS I HEAR MOST</sub>
+
+| “What if AI gets it wrong?” | “Why doesn’t it sound like us?” | “Why does it forget my business?” |
+| --- | --- | --- |
+| Give drafting and checking their own steps. A Doer drafts. A Checker reviews. | Set the standard, rate the draft against it, refine what matters. | Write a reusable brief about your business, brand, and audience. |
+
+[More lessons on bradcowdrey.com ↗](https://bradcowdrey.com/#notes)
 
 ---
 
@@ -37,51 +48,47 @@ Along the way, thousands of AI questions have landed in my DMs and inbox. I love
 
 ### Business is where the lessons begin.
 
-I’ve built and sold companies, and I advise, invest in, and operate businesses.
-
-**Build · Advise · Invest · Operate**
+I’ve built and sold companies, and I advise, invest in, and operate businesses. **Build · Advise · Invest · Operate.**
 
 | Company | My role | Focus |
 | --- | --- | --- |
-| [**Eveoy**](https://eveoy.com) | Co-Founder and CEO | Bring real customers to your brand on-demand. In-store and online. |
-| [**Silverlane**](https://silverlane.io) | Founding Board Member · 2017–Present | Enterprise technology |
-| [**Kyee AI**](https://kyee.ai) | Advisor | Making AI work for every business leader |
-| [**Karibu AI**](https://www.karibu.ai/) | Board of Advisors | Healthcare artificial intelligence |
+| [**Eveoy**](https://eveoy.com) | Co-Founder and CEO | Changing the future of marketing and advertising |
 | [**Clear Peak**](https://clearpeak.com) | Founder and CEO · 2000–2018 | Advanced intelligence for enterprise and governments |
-| [**Omnity AI**](https://www.omnity.io) | GTM Founding Member and Advisor | Building advanced semantic AI |
+| [**Silverlane**](https://silverlane.io) | Founding Board Member | Enterprise technology |
+| [**Kyee AI**](https://kyee.ai) | Advisor | Making AI work for every business leader |
+| [**Karibu AI**](https://www.karibu.ai/) | Board of Advisors | Healthcare AI |
+| [**Omnity AI**](https://www.omnity.io) | GTM Founding Member and Advisor | Advanced semantic AI |
 | [**Fellow Man**](https://fellowman.us/) | Founding Board Member and Advisor | Luxury fashion (technology) for men |
-| **AGI Startup** | Founding Board Member and Advisor · 2019–Present | Artificial general intelligence |
-| **Crypto Startup** | Founding Board Member and Advisor · 2017–Present | Next generation of cryptocurrency |
-| **Quantum Labs** | Research Collaborator · 2018–Present | Quantum computing |
 
-[All companies on bradcowdrey.com ↗](https://bradcowdrey.com/#companies) · [My experience on LinkedIn ↗](https://www.linkedin.com/in/cowdrey/details/experience/)
+<details>
+<summary>Plus three in quiet mode</summary>
 
----
+| Company | My role | Focus |
+| --- | --- | --- |
+| **AGI Startup** | Founding Board Member and Advisor | Artificial general intelligence |
+| **Crypto Startup** | Founding Board Member and Advisor | Next generation of cryptocurrency |
+| **Quantum Labs** | Research Collaborator | Quantum computing |
+
+</details>
 
 <sub>WHAT I BUILD WITH</sub>
 
 ![React](https://img.shields.io/badge/React-0E0D0B?style=flat-square&logo=react&logoColor=FBF9F5)
 ![React Native](https://img.shields.io/badge/React_Native-0E0D0B?style=flat-square&logo=react&logoColor=FBF9F5)
 ![TypeScript](https://img.shields.io/badge/TypeScript-0E0D0B?style=flat-square&logo=typescript&logoColor=FBF9F5)
-![Node.js](https://img.shields.io/badge/Node.js-0E0D0B?style=flat-square&logo=node.js&logoColor=FBF9F5)
 ![Ruby on Rails](https://img.shields.io/badge/Ruby_on_Rails-0E0D0B?style=flat-square&logo=rubyonrails&logoColor=FBF9F5)
 ![Python](https://img.shields.io/badge/Python-0E0D0B?style=flat-square&logo=python&logoColor=FBF9F5)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0E0D0B?style=flat-square&logo=postgresql&logoColor=FBF9F5)
 ![AWS](https://img.shields.io/badge/AWS-0E0D0B?style=flat-square&logo=amazonwebservices&logoColor=FBF9F5)
-![Kubernetes](https://img.shields.io/badge/Kubernetes-0E0D0B?style=flat-square&logo=kubernetes&logoColor=FBF9F5)
 ![Claude](https://img.shields.io/badge/Claude-BC754F?style=flat-square&logo=anthropic&logoColor=FBF9F5)
 ![OpenAI](https://img.shields.io/badge/OpenAI-BC754F?style=flat-square&logo=openai&logoColor=FBF9F5)
 ![n8n](https://img.shields.io/badge/n8n-BC754F?style=flat-square&logo=n8n&logoColor=FBF9F5)
 
 ---
 
-<sub>A LITTLE ABOUT BRADLEY</sub>
+### We’re all learning what comes next.
 
-### I’m learning by doing. And sharing what helps.
-
-In conversations with business owners, I keep hearing the same concerns about AI: it makes mistakes, it forgets the context, and getting a useful result takes too much effort.
-
-That’s where my teaching starts. Clear explanations. Small, repeatable skills. A way to check the work before you put your name on it.
+Get useful AI lessons, stories from building companies, and updates on the skills and book as they launch at **[bradcowdrey.com](https://bradcowdrey.com/#connect)**.
 
 *Let’s put it to use for you.*<br>
 **Bradley**
