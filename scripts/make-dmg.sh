@@ -5,7 +5,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 VERSION="${1:-${VERSION:-0.1.0}}"
-VERSION="${VERSION#v}"
+VERSION="${VERSION##*v}"  # "v0.1.0" or "meridian-v0.1.0" -> "0.1.0"
 DMG="dist/Meridian-$VERSION.dmg"
 STAGE="$(mktemp -d)/Meridian"
 

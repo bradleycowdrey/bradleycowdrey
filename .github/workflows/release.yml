@@ -1,9 +1,9 @@
 name: Release
 
-# Push a tag like v0.1.0 to publish a downloadable DMG on GitHub Releases.
+# Push a tag like v0.1.0 (or meridian-v0.1.0) to publish a downloadable DMG on GitHub Releases.
 on:
   push:
-    tags: ["v*"]
+    tags: ["v*", "meridian-v*"]
 
 permissions:
   contents: write
@@ -50,4 +50,5 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" dist/*.dmg dist/*.sha256 \
-            --title "Meridian ${GITHUB_REF_NAME#v}" --generate-notes
+            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
+            --title "Meridian ${GITHUB_REF_NAME##*v}" --notes "Drag Meridian into Applications. First launch: right-click Meridian, then Open."
