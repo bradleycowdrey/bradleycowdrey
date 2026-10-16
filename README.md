@@ -11,6 +11,7 @@
   <a href="https://kyee.ai"><img src="https://img.shields.io/badge/Kyee_AI-BC754F?style=flat-square&logoColor=FBF9F5" alt="Kyee AI"></a>
   <a href="https://www.linkedin.com/in/cowdrey/"><img src="https://img.shields.io/badge/LinkedIn-BC754F?style=flat-square&logo=linkedin&logoColor=FBF9F5" alt="LinkedIn"></a>
   <a href="https://x.com/bradcowdrey"><img src="https://img.shields.io/badge/X-BC754F?style=flat-square&logo=x&logoColor=FBF9F5" alt="X"></a>
+  <a href="https://www.instagram.com/bradleycowdrey/"><img src="https://img.shields.io/badge/Instagram-BC754F?style=flat-square&logo=instagram&logoColor=FBF9F5" alt="Instagram"></a>
 </p>
 
 ### 👋 Great to have you here.
