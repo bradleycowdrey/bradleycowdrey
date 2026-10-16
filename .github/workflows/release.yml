@@ -1,9 +1,13 @@
 name: Release
 
-# Push a tag like v0.1.0 (or meridian-v0.1.0) to publish a downloadable DMG on GitHub Releases.
+# Every push to the meridian branch builds the app and publishes the DMG on GitHub Releases
+# under the tag meridian-v<VERSION file>. Bump VERSION for a new release; pushing again
+# with the same VERSION replaces that release's DMG.
 on:
   push:
+    branches: [meridian]
     tags: ["v*", "meridian-v*"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -35,6 +39,14 @@ jobs:
           security set-key-partition-list -S apple-tool:,apple: -s -k ci "$KEYCHAIN"
           security list-keychains -d user -s "$KEYCHAIN"
 
+      - name: Work out version
+        run: |
+          if [[ "$GITHUB_REF_TYPE" == "tag" ]]; then
+            echo "TAG=$GITHUB_REF_NAME" >> "$GITHUB_ENV"
+          else
+            echo "TAG=meridian-v$(tr -d '[:space:]' < VERSION)" >> "$GITHUB_ENV"
+          fi
+
       - name: Build and package
         env:
           CODESIGN_IDENTITY: ${{ secrets.CODESIGN_IDENTITY }}
@@ -42,13 +54,18 @@ jobs:
           NOTARY_PASSWORD: ${{ secrets.NOTARY_PASSWORD }}
           NOTARY_TEAM_ID: ${{ secrets.NOTARY_TEAM_ID }}
         run: |
-          scripts/build-app.sh "$GITHUB_REF_NAME"
-          scripts/make-dmg.sh "$GITHUB_REF_NAME"
+          scripts/build-app.sh "$TAG"
+          scripts/make-dmg.sh "$TAG"
 
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" dist/*.dmg dist/*.sha256 \
-            --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" \
-            --title "Meridian ${GITHUB_REF_NAME##*v}" --notes "Drag Meridian into Applications. First launch: right-click Meridian, then Open."
+          if gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload "$TAG" dist/*.dmg dist/*.sha256 --repo "$GITHUB_REPOSITORY" --clobber
+          else
+            gh release create "$TAG" dist/*.dmg dist/*.sha256 \
+              --repo "$GITHUB_REPOSITORY" --target "$GITHUB_SHA" --latest=false \
+              --title "Meridian ${TAG##*v}" \
+              --notes "Download the DMG, open it and drag Meridian into Applications. First launch: right-click Meridian, then Open. Made by Bradley Cowdrey · bradcowdrey.com"
+          fi
