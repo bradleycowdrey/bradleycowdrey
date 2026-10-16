@@ -1,0 +1,102 @@
+import SwiftUI
+
+struct SettingsView: View {
+    var body: some View {
+        TabView {
+            CitiesSettings().tabItem { Label("Cities", systemImage: "globe") }
+            GeneralSettings().tabItem { Label("General", systemImage: "gearshape") }
+            AboutView().tabItem { Label("About", systemImage: "info.circle") }
+        }
+        .frame(width: 480, height: 400)
+    }
+}
+
+private struct CitiesSettings: View {
+    @EnvironmentObject private var store: ZoneStore
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            List {
+                ForEach($store.places) { $place in
+                    HStack(spacing: 10) {
+                        Image(systemName: "line.3.horizontal").foregroundStyle(.tertiary)
+                        TextField("Name", text: $place.name)
+                            .textFieldStyle(.plain)
+                            .font(.body.weight(.medium))
+                        Spacer()
+                        Text(TimeMath.time(store.now, in: place.timeZone, use24h: store.use24h))
+                            .monospacedDigit()
+                            .foregroundStyle(.secondary)
+                        Text(place.offsetLabel(at: store.now))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                            .frame(width: 64, alignment: .trailing)
+                        Button {
+                            store.remove(place)
+                        } label: {
+                            Image(systemName: "minus.circle.fill").foregroundStyle(.red)
+                        }
+                        .buttonStyle(.plain)
+                        .help("Remove")
+                    }
+                    .padding(.vertical, 2)
+                }
+                .onMove { store.move(from: $0, to: $1) }
+            }
+            .listStyle(.bordered)
+            Text("Drag to reorder. Click a name to rename it. Add cities with + in the menu bar.")
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding(20)
+    }
+}
+
+private struct GeneralSettings: View {
+    @EnvironmentObject private var store: ZoneStore
+
+    var body: some View {
+        Form {
+            Picker("Menu bar shows", selection: $store.menuBarStyle) {
+                ForEach(MenuBarStyle.allCases) { Text($0.label).tag($0) }
+            }
+            if store.menuBarStyle == .cityTime {
+                Picker("City", selection: Binding(
+                    get: { store.menuBarPlace?.id },
+                    set: { store.menuBarPlaceID = $0 }
+                )) {
+                    ForEach(store.places) { Text($0.name).tag(Optional($0.id)) }
+                }
+            }
+            Toggle("24-hour clock", isOn: $store.use24h)
+            Toggle("Highlight working hours", isOn: $store.showWorkHours)
+            if store.showWorkHours {
+                Stepper("Work starts at \(store.workStart):00", value: $store.workStart, in: 0...23)
+                Stepper("Work ends at \(store.workEnd):00", value: $store.workEnd, in: 1...24)
+            }
+            Toggle("Keep desktop window on top", isOn: $store.floatOnTop)
+            Toggle("Open at login", isOn: Binding(get: { store.launchAtLogin }, set: { store.launchAtLogin = $0 }))
+        }
+        .formStyle(.grouped)
+    }
+}
+
+private struct AboutView: View {
+    var body: some View {
+        VStack(spacing: 10) {
+            AppMark(size: 72)
+            Text(Brand.appName).font(.title.bold())
+            Text(Brand.tagline).foregroundStyle(.secondary)
+            Text("Version \(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "dev")")
+                .font(.caption).foregroundStyle(.tertiary)
+            Divider().frame(width: 200).padding(.vertical, 6)
+            Text("Made by \(Brand.author)")
+            HStack(spacing: 16) {
+                Link(Brand.websiteHost, destination: Brand.website)
+                Link("Source on GitHub", destination: Brand.repository)
+            }
+            Text("Free and open source (MIT).").font(.caption).foregroundStyle(.secondary)
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}

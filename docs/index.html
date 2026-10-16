@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meridian for Mac</title>
+<meta name="description" content="Meridian: every time zone at a glance. A free, open-source world clock for the Mac menu bar, by Brad Cowdrey.">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --bg: #f5f5f7; --text: #1d1d1f; --muted: #6e6e73; --line: rgba(0,0,0,.1); --blue: #0a84ff;
+    --panel-a: #12142b; --panel-b: #1f1a3d; --panel-c: #382142;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #1e1e1e; --text: #f5f5f7; --muted: #a1a1a6; --line: rgba(255,255,255,.12); }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+    font: 17px/1.5 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
+  a { color: var(--blue); text-decoration: none; }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 0 16px; }
+  .top { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; }
+  .top .brand { display: flex; gap: 10px; align-items: center; color: var(--text); font-weight: 600; }
+  .top img { width: 28px; height: 28px; }
+  .hero { display: flex; gap: 32px; align-items: flex-start; padding: 36px 0 28px; }
+  .hero > img { width: 150px; height: 150px; flex: none; filter: drop-shadow(0 10px 22px rgba(0,0,0,.35)); }
+  h1 { font-size: clamp(30px, 5vw, 44px); line-height: 1.1; margin: 6px 0; }
+  .sub { color: var(--muted); font-size: 21px; margin: 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 24px; }
+  .pill { border-radius: 999px; padding: 9px 26px; font-weight: 700; display: inline-block; }
+  .pill.primary { background: var(--blue); color: #fff; }
+  .pill.secondary { background: rgba(127,127,127,.15); color: var(--blue); }
+  .fine { color: var(--muted); font-size: 14px; }
+  .stats { display: grid; grid-template-columns: repeat(5, 1fr); border-top: 1px solid var(--line); padding: 20px 0; }
+  .stat { text-align: center; border-right: 1px solid var(--line); padding: 0 6px; }
+  .stat:last-child { border-right: 0; }
+  .stat .k { font-size: 12px; letter-spacing: .06em; font-weight: 600; color: var(--muted); text-transform: uppercase; }
+  .stat .v { font-size: 24px; font-weight: 700; color: var(--muted); margin: 4px 0; }
+  .stat .c { font-size: 15px; color: var(--muted); }
+
+  /* Live demo panel: mirrors the Mac app. */
+  .demo { border-radius: 16px; padding: 20px; color: #fff; margin: 10px 0 12px; user-select: none;
+    background: linear-gradient(to bottom, var(--panel-a), var(--panel-b), var(--panel-c));
+    box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+  .bar { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .rel { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #ffb366; }
+  .rel.away { color: #99bfff; }
+  .moment { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .ctrls { display: flex; gap: 6px; }
+  .ctrls button { height: 28px; min-width: 28px; border-radius: 999px; border: 0; background: rgba(255,255,255,.1); color: #fff; font-weight: 700; cursor: pointer; padding: 0 12px; }
+  .ctrls button.now { background: var(--blue); }
+  .ctrls button.now[disabled] { background: rgba(255,255,255,.1); color: rgba(255,255,255,.5); cursor: default; }
+  .grid { display: grid; grid-template-columns: 136px 1fr; align-items: start; }
+  .labels .row, .ribbons .row { height: 34px; margin-bottom: 6px; }
+  .labels .spacer, .ribbons .dots { height: 10px; margin-bottom: 6px; }
+  .labels .name { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .labels .meta { font-size: 10px; color: rgba(255,255,255,.75); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .labels .meta i { font-style: normal; opacity: .6; }
+  .labels .meta b { font-size: 9px; background: rgba(255,255,255,.15); border-radius: 99px; padding: 0 4px; }
+  .ribbons { position: relative; overflow: hidden; cursor: grab; touch-action: pan-y;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+  .ribbons:active { cursor: grabbing; }
+  .track { position: relative; }
+  .ribbons .row, .ribbons .dots { display: flex; gap: 2px; }
+  .cell { flex: none; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    font: 500 12px/1 ui-rounded, -apple-system, sans-serif; font-variant-numeric: tabular-nums; position: relative; }
+  .cell.center { font-weight: 800; }
+  .cell small { font-size: 7px; font-weight: 800; text-transform: uppercase; margin-top: 2px; }
+  .cell sup { font-size: 7px; font-weight: 700; }
+  .cell.midnight::before { content: ""; position: absolute; left: -2px; top: 4px; bottom: 4px; width: 2px; border-radius: 2px; background: rgba(255,255,255,.85); }
+  .dot { flex: none; display: flex; justify-content: center; align-items: center; }
+  .dot i { width: 5px; height: 5px; border-radius: 50%; background: #73f299; box-shadow: 0 0 6px #3c3; }
+  .lens { position: absolute; top: 16px; bottom: 6px; border: 2px solid rgba(255,255,255,.9); border-radius: 10px;
+    background: rgba(255,255,255,.08); box-shadow: 0 0 12px rgba(255,255,255,.25); pointer-events: none; }
+  .hint { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 6px; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+  section h2 { font-size: 26px; margin: 34px 0 10px; }
+  .features { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 0 28px; }
+  .feature { padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .feature b { display: block; }
+  .feature span { color: var(--muted); font-size: 15px; }
+  ol li { margin: 6px 0; }
+  code { font-family: ui-monospace, Menlo, monospace; font-size: 14px; background: rgba(127,127,127,.15); padding: 2px 6px; border-radius: 6px; }
+  footer { border-top: 1px solid var(--line); margin-top: 40px; padding: 22px 0 40px; color: var(--muted); font-size: 14px; }
+  @media (max-width: 720px) {
+    .hero { flex-direction: column; gap: 14px; padding-top: 12px; }
+    .hero > img { width: 110px; height: 110px; }
+    .stats { grid-template-columns: repeat(2, 1fr); row-gap: 16px; }
+    .stat:nth-child(2n) { border-right: 0; }
+    .grid { grid-template-columns: 104px 1fr; }
+    .demo { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="https://bradcowdrey.me"><img src="icon.png" alt="">bradcowdrey.me</a>
+    <a href="https://github.com/bc101101/meridian">GitHub</a>
+  </header>
+
+  <div class="hero">
+    <img src="icon.png" alt="Meridian app icon">
+    <div>
+      <h1>Meridian: Time Zones</h1>
+      <p class="sub">Every time zone at a glance, in your menu bar.</p>
+      <div class="actions">
+        <a class="pill primary" href="https://github.com/bc101101/meridian/releases/latest">Download</a>
+        <a class="pill secondary" href="https://github.com/bc101101/meridian">View Source</a>
+        <span class="fine">Free · Open source · macOS 14+</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="k">Price</div><div class="v">Free</div><div class="c">MIT license</div></div>
+    <div class="stat"><div class="k">Category</div><div class="v">◷</div><div class="c">Utilities</div></div>
+    <div class="stat"><div class="k">Developer</div><div class="v">BC</div><div class="c">Brad Cowdrey</div></div>
+    <div class="stat"><div class="k">Chip</div><div class="v">M · x86</div><div class="c">Universal</div></div>
+    <div class="stat"><div class="k">Size</div><div class="v">~1</div><div class="c">MB</div></div>
+  </div>
+
+  <section>
+    <h2>Try it right here</h2>
+    <div class="demo" id="demo" tabindex="0" aria-label="Interactive time zone strip">
+      <div class="bar">
+        <div><div class="rel" id="rel">Now · your time</div><div class="moment" id="moment"></div></div>
+        <div class="ctrls">
+          <button id="prev" aria-label="One hour earlier">‹</button>
+          <button id="now" class="now" disabled>Now</button>
+          <button id="next" aria-label="One hour later">›</button>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="labels" id="labels"></div>
+        <div class="ribbons" id="ribbons"><div class="track" id="track"></div><div class="lens" id="lens"></div></div>
+      </div>
+      <div class="hint"><span>Drag, scroll, click an hour or use ← →</span><span>Green dots: everyone is in working hours</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Simple on purpose</h2>
+    <div class="features">
+      <div class="feature"><b>Day/night ribbons</b><span>One row per city. Each column is the same instant everywhere.</span></div>
+      <div class="feature"><b>Time travel</b><span>Drag, scroll or click an hour to plan across zones. Now snaps back.</span></div>
+      <div class="feature"><b>Meeting overlap</b><span>See at a glance when everyone is in working hours.</span></div>
+      <div class="feature"><b>Copy the moment</b><span>Paste a time for every city straight into a chat or invite.</span></div>
+      <div class="feature"><b>Smart search</b><span>Cities, airport codes (SFO), abbreviations (PST) and offsets (UTC+5:30).</span></div>
+      <div class="feature"><b>Menu bar or desktop</b><span>An icon or “LON 14:32” in the menu bar, plus a floating desktop window.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Install</h2>
+    <ol>
+      <li>Download the latest <b>Meridian.dmg</b> and drag Meridian into Applications.</li>
+      <li>First launch: right-click Meridian and choose <b>Open</b>, or run <code>xattr -dr com.apple.quarantine /Applications/Meridian.app</code></li>
+      <li>Click the globe in your menu bar, then press <b>+</b> to add cities.</li>
+    </ol>
+  </section>
+
+  <footer>© 2026 Brad Cowdrey · <a href="https://bradcowdrey.me">bradcowdrey.me</a> · Free and open source</footer>
+</div>
+
+<script>
+(() => {
+  const local = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const cities = [
+    ["Los Angeles", "America/Los_Angeles"], ["New York", "America/New_York"], ["London", "Europe/London"],
+    ["Warsaw", "Europe/Warsaw"], ["Dubai", "Asia/Dubai"], ["Mumbai", "Asia/Kolkata"], ["Tokyo", "Asia/Tokyo"],
+  ];
+  if (!cities.some(c => c[1] === local)) cities.unshift([local.split("/").pop().replace(/_/g, " ") + " (you)", local]);
+
+  const CELL = 36, WORK_START = 9, WORK_END = 18;
+  const stops = [[0,[33,36,82]],[5,[38,41,97]],[6.5,[133,87,143]],[7.5,[237,148,112]],[9,[250,207,153]],
+                 [16,[250,207,153]],[18,[242,153,102]],[19.5,[153,92,143]],[21,[61,54,120]],[24,[33,36,82]]];
+  const sky = h => {
+    for (let i = 0; i < stops.length - 1; i++) {
+      const [h0, a] = stops[i], [h1, b] = stops[i + 1];
+      if (h >= h0 && h <= h1) {
+        const t = (h - h0) / (h1 - h0), c = a.map((v, k) => Math.round(v + (b[k] - v) * t));
+        const lum = (0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]) / 255;
+        return { fill: `rgb(${c})`, text: lum > 0.6 ? "#33211a" : "#fff" };
+      }
+    }
+    return { fill: "rgb(33,36,82)", text: "#fff" };
+  };
+  const fmt = {};
+  const parts = (date, tz) => {
+    fmt[tz] ??= new Intl.DateTimeFormat("en-US", { timeZone: tz, hour: "numeric", minute: "2-digit", weekday: "short",
+      day: "numeric", month: "short", year: "numeric", hourCycle: "h23", timeZoneName: "shortOffset" });
+    const o = {}; for (const p of fmt[tz].formatToParts(date)) o[p.type] = p.value; return o;
+  };
+  const pad = n => String(n).padStart(2, "0");
+  const dayFmt = {};
+  const dayKey = (date, tz) => (dayFmt[tz] ??= new Intl.DateTimeFormat("en-CA",
+    { timeZone: tz, year: "numeric", month: "2-digit", day: "2-digit" })).format(date);
+
+  let offset = 0, drag = 0, startX = null;
+  const $ = id => document.getElementById(id);
+  const ribbons = $("ribbons"), track = $("track"), lens = $("lens");
+
+  function render() {
+    const now = new Date();
+    const anchor = new Date(now); anchor.setMinutes(0, 0, 0);
+    const total = offset - drag / CELL, base = Math.round(total), frac = total - base;
+    const width = ribbons.clientWidth, half = Math.ceil(width / CELL / 2) + 2;
+    const moment = base === 0 ? now : new Date(anchor.getTime() + base * 3600e3);
+    const at = i => new Date(anchor.getTime() + i * 3600e3);
+    const isWork = h => h >= WORK_START && h < WORK_END;
+
+    const m = parts(moment, local);
+    $("moment").textContent = `${m.weekday} ${m.day} ${m.month}, ${pad(m.hour)}:${m.minute}`;
+    const rel = $("rel");
+    const d = Math.floor(Math.abs(base) / 24), h = Math.abs(base) % 24;
+    const span = [d ? d + " d" : "", h ? h + " h" : ""].filter(Boolean).join(" ");
+    rel.textContent = base === 0 ? "Now · your time" : base > 0 ? `In ${span}` : `${span} ago`;
+    rel.classList.toggle("away", base !== 0);
+    $("now").disabled = offset === 0;
+
+    $("labels").innerHTML = '<div class="spacer"></div>' + cities.map(([name, tz]) => {
+      const p = parts(moment, tz);
+      const there = dayKey(moment, tz), here = dayKey(moment, local);
+      const shift = there === here ? "" : `<b>${there > here ? "+1 day" : "−1 day"}</b> `;
+      const off = p.timeZoneName.replace("GMT", "UTC").replace("-", "−");
+      return `<div class="row"><div class="name">${name}</div><div class="meta">${pad(p.hour)}:${p.minute} ${shift}<i>${off}</i></div></div>`;
+    }).join("");
+
+    let html = '<div class="dots">';
+    const idx = []; for (let i = base - half; i <= base + half; i++) idx.push(i);
+    for (const i of idx) {
+      const all = cities.every(([, tz]) => isWork(+parts(at(i), tz).hour));
+      html += `<div class="dot" style="width:${CELL - 2}px">${all ? "<i></i>" : ""}</div>`;
+    }
+    html += "</div>";
+    for (const [, tz] of cities) {
+      html += '<div class="row">';
+      for (const i of idx) {
+        const p = parts(at(i), tz), hr = +p.hour, mn = +p.minute, s = sky(hr + mn / 60);
+        const dim = isWork(hr) ? 1 : 0.62;
+        html += `<div class="cell${i === base ? " center" : ""}${hr === 0 ? " midnight" : ""}" data-i="${i}" ` +
+          `style="width:${CELL - 2}px;color:${s.text};background:${s.fill.replace("rgb", "rgba").replace(")", "," + dim + ")")}">` +
+          `<span>${pad(hr)}${mn ? `<sup>:${pad(mn)}</sup>` : ""}</span>${hr === 0 ? `<small>${p.weekday}</small>` : ""}</div>`;
+      }
+      html += "</div>";
+    }
+    track.innerHTML = html;
+    const trackWidth = idx.length * CELL;
+    track.style.transform = `translateX(${width / 2 - trackWidth / 2 - frac * CELL}px)`;
+    lens.style.width = CELL + 4 + "px";
+    lens.style.left = width / 2 - (CELL + 4) / 2 - 1 + "px";
+  }
+
+  const travel = n => { offset += n; render(); };
+  $("prev").onclick = () => travel(-1);
+  $("next").onclick = () => travel(1);
+  $("now").onclick = () => { offset = 0; render(); };
+  let dragging = false;
+  track.addEventListener("click", e => {
+    const cell = e.target.closest(".cell");
+    if (cell && !dragging) { offset = +cell.dataset.i; render(); }
+    dragging = false;
+  });
+  ribbons.addEventListener("pointerdown", e => { startX = e.clientX; drag = 0; dragging = false; });
+  ribbons.addEventListener("pointermove", e => {
+    if (startX === null) return;
+    const dx = e.clientX - startX;
+    if (!dragging && Math.abs(dx) > 3) { dragging = true; ribbons.setPointerCapture(e.pointerId); }
+    if (dragging) { drag = dx; render(); }
+  });
+  const end = () => {
+    if (startX === null) return;
+    startX = null;
+    if (dragging) { offset += Math.round(-drag / CELL); drag = 0; render(); setTimeout(() => { dragging = false; }, 0); }
+  };
+  ribbons.addEventListener("pointerup", end);
+  ribbons.addEventListener("pointercancel", end);
+  let acc = 0;
+  ribbons.addEventListener("wheel", e => {
+    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+    acc += delta; e.preventDefault();
+    if (Math.abs(acc) >= 30) { const s = Math.trunc(acc / 30); acc -= s * 30; travel(s); }
+  }, { passive: false });
+  $("demo").addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft") { travel(-1); e.preventDefault(); }
+    if (e.key === "ArrowRight") { travel(1); e.preventDefault(); }
+  });
+  addEventListener("resize", render);
+  setInterval(render, 15000);
+  render();
+})();
+</script>
+</body>
+</html>
