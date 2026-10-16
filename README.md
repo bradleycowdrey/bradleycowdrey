@@ -1,85 +1,89 @@
-# Hey, I'm Brad Cowdrey
+<a href="https://bradcowdrey.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.png">
+    <img src="assets/banner-light.png" alt="Bradley Cowdrey. Founder. Operator. Always learning. I'm building Eveoy. Let's help you build bigger, too. bradcowdrey.com" width="100%">
+  </picture>
+</a>
 
-**Serial Founder & CEO** | San Francisco Bay Area
-14x CEO across enterprise software, fintech, adtech, and telecom | Harvard Business School | 30+ years in tech
+<p>
+  <a href="https://bradcowdrey.com"><img src="https://img.shields.io/badge/bradcowdrey.com-0E0D0B?style=flat-square&logoColor=FBF9F5" alt="bradcowdrey.com"></a>
+  <a href="https://www.linkedin.com/in/cowdrey/"><img src="https://img.shields.io/badge/LinkedIn-BC754F?style=flat-square&logo=linkedin&logoColor=FBF9F5" alt="LinkedIn"></a>
+  <a href="https://x.com/bradcowdrey"><img src="https://img.shields.io/badge/X-BC754F?style=flat-square&logo=x&logoColor=FBF9F5" alt="X"></a>
+  <a href="https://www.instagram.com/bradleycowdrey/"><img src="https://img.shields.io/badge/Instagram-BC754F?style=flat-square&logo=instagram&logoColor=FBF9F5" alt="Instagram"></a>
+</p>
 
-## Active Projects
+<sub>BUSINESS, TECHNOLOGY &amp; WHAT COMES NEXT</sub>
 
-### Eveoy — Co-Founder & CEO (2020–Present)
-The first platform that guarantees verified in-store customer visits for retail brands. GPS-verified, demographically matched, with authentic UGC content. AWS partnership, 50K+ verified advocates, 24 case studies across 15 verticals.
+### I’m building Eveoy. Let’s help you build bigger, too.
 
-`React Native` `React` `Ruby on Rails` `AWS` `PostgreSQL` `Stripe` `OpenAI` `Claude` `n8n` `Kubernetes`
+**Great to have you here.** I’m the co-founder and CEO of [Eveoy](https://eveoy.com). The idea is simple: click a button and get customers in-store to experience your brand, sample, buy, try, and take photos in-store.
 
-### Laboratory for AI System Dynamics — Research Collaborator (2020–Present)
-AI systems research focused on dynamic behavior modeling and applied machine learning.
+Along the way, thousands of AI questions have landed in my DMs and inbox. I love helping, and I have Eveoy to run. So I’m putting that advice into practical posts and my book, helping more of you get more from the AI tools you already use.
 
-`Python` `Machine Learning` `AI Research`
+**[Visit bradcowdrey.com ↗](https://bradcowdrey.com)**
 
-### Quantum Computing Labs — Research Collaborator (2018–Present)
-Research collaboration in quantum computing applications and emerging computational paradigms.
+---
 
-`Quantum Computing` `Research`
+<sub>COMING NEXT</sub>
 
-### Silverlane Technology — Founding Board Member (2017–Present)
-Board-level technology strategy and governance for an emerging technology venture.
+### Keep going. I’ll help you get there.
 
-`Board Governance` `Tech Strategy`
+- **AI Skills Bible** · *Coming soon on Amazon and Gumroad.* The concepts, skills, and routines to keep close as you learn and put AI to work.
+- **[Kyee AI](https://kyee.ai)** · *Live at kyee.ai.* Practical AI skills from me and turnkey help from our partner, from your first useful prompt to more capable everyday work.
 
-### FinTech Startup — Founding Board Member (2019–Present)
-Board member guiding product and growth strategy for a financial technology company.
+---
 
-`FinTech` `Board Governance`
+<sub>THE COMPANY SIDE</sub>
 
-### AGI Startup — Founding Board Member & Advisor (2019–Present)
-Advising on artificial general intelligence strategy, product direction, and go-to-market.
+### Business is where the lessons begin.
 
-`AI/AGI` `Board Governance` `Advisory`
+I’ve built and sold companies, and I advise, invest in, and operate businesses.
 
-### Crypto Startup — Advisor (2017–Present)
-Strategic advisor on blockchain and cryptocurrency product development.
+**Build · Advise · Invest · Operate**
 
-`Blockchain` `Crypto` `Advisory`
+| Company | My role | Focus |
+| --- | --- | --- |
+| [**Eveoy**](https://eveoy.com) | Co-Founder and CEO | Bring real customers to your brand on-demand. In-store and online. |
+| [**Silverlane**](https://silverlane.io) | Founding Board Member · 2017–Present | Enterprise technology |
+| [**Kyee AI**](https://kyee.ai) | Advisor | Making AI work for every business leader |
+| [**Karibu AI**](https://www.karibu.ai/) | Board of Advisors | Healthcare artificial intelligence |
+| [**Clear Peak**](https://clearpeak.com) | Founder and CEO · 2000–2018 | Advanced intelligence for enterprise and governments |
+| [**Omnity AI**](https://www.omnity.io) | GTM Founding Member and Advisor | Building advanced semantic AI |
+| [**Fellow Man**](https://fellowman.us/) | Founding Board Member and Advisor | Luxury fashion (technology) for men |
+| **AGI Startup** | Founding Board Member and Advisor · 2019–Present | Artificial general intelligence |
+| **Crypto Startup** | Founding Board Member and Advisor · 2017–Present | Next generation of cryptocurrency |
+| **Quantum Labs** | Research Collaborator · 2018–Present | Quantum computing |
 
-### Metaverse Startup — Advisor (2021–Present)
-Advising on metaverse platform strategy and spatial computing applications.
+[All companies on bradcowdrey.com ↗](https://bradcowdrey.com/#companies) · [My experience on LinkedIn ↗](https://www.linkedin.com/in/cowdrey/details/experience/)
 
-`Metaverse` `Spatial Computing` `Advisory`
+---
 
-## Previous
+<sub>WHAT I BUILD WITH</sub>
 
-### Clear Peak — Founder & CEO (2000–2018)
-Founded and led for 18 years. Helped Global 5000 enterprises and governments leverage analytics and machine learning. Realized billions in value for clients.
+![React](https://img.shields.io/badge/React-0E0D0B?style=flat-square&logo=react&logoColor=FBF9F5)
+![React Native](https://img.shields.io/badge/React_Native-0E0D0B?style=flat-square&logo=react&logoColor=FBF9F5)
+![TypeScript](https://img.shields.io/badge/TypeScript-0E0D0B?style=flat-square&logo=typescript&logoColor=FBF9F5)
+![Node.js](https://img.shields.io/badge/Node.js-0E0D0B?style=flat-square&logo=node.js&logoColor=FBF9F5)
+![Ruby on Rails](https://img.shields.io/badge/Ruby_on_Rails-0E0D0B?style=flat-square&logo=rubyonrails&logoColor=FBF9F5)
+![Python](https://img.shields.io/badge/Python-0E0D0B?style=flat-square&logo=python&logoColor=FBF9F5)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-0E0D0B?style=flat-square&logo=postgresql&logoColor=FBF9F5)
+![AWS](https://img.shields.io/badge/AWS-0E0D0B?style=flat-square&logo=amazonwebservices&logoColor=FBF9F5)
+![Kubernetes](https://img.shields.io/badge/Kubernetes-0E0D0B?style=flat-square&logo=kubernetes&logoColor=FBF9F5)
+![Claude](https://img.shields.io/badge/Claude-BC754F?style=flat-square&logo=anthropic&logoColor=FBF9F5)
+![OpenAI](https://img.shields.io/badge/OpenAI-BC754F?style=flat-square&logo=openai&logoColor=FBF9F5)
+![n8n](https://img.shields.io/badge/n8n-BC754F?style=flat-square&logo=n8n&logoColor=FBF9F5)
 
-`Analytics` `Machine Learning` `Enterprise` `Big Data`
+---
 
-### Fujitsu — Software Engineer (1998–2000)
-MPP, BI, and analytics engineering.
+<sub>A LITTLE ABOUT BRADLEY</sub>
 
-### GE — System Engineer (1991–1998)
-Started career in systems engineering.
+### I’m learning by doing. And sharing what helps.
 
-## Tech Stack
+In conversations with business owners, I keep hearing the same concerns about AI: it makes mistakes, it forgets the context, and getting a useful result takes too much effort.
 
-![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![TypeScript](https://img.shields.io/badge/-TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white)
-![React](https://img.shields.io/badge/-React-61DAFB?style=flat-square&logo=react&logoColor=black)
-![React Native](https://img.shields.io/badge/-React_Native-61DAFB?style=flat-square&logo=react&logoColor=black)
-![Node.js](https://img.shields.io/badge/-Node.js-339933?style=flat-square&logo=node.js&logoColor=white)
-![Ruby on Rails](https://img.shields.io/badge/-Ruby_on_Rails-CC0000?style=flat-square&logo=rubyonrails&logoColor=white)
-![Python](https://img.shields.io/badge/-Python-3776AB?style=flat-square&logo=python&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-4169E1?style=flat-square&logo=postgresql&logoColor=white)
-![AWS](https://img.shields.io/badge/-AWS-232F3E?style=flat-square&logo=amazonwebservices&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/-Kubernetes-326CE5?style=flat-square&logo=kubernetes&logoColor=white)
-![n8n](https://img.shields.io/badge/-n8n-EA4B71?style=flat-square&logo=n8n&logoColor=white)
+That’s where my teaching starts. Clear explanations. Small, repeatable skills. A way to check the work before you put your name on it.
 
-## Background
+*Let’s put it to use for you.*<br>
+**Bradley**
 
-- **Harvard Business School** — OPM 49 (2015–2017)
-- **UNC** — BS (1994–1998)
-- CEO of 14 fast-growing technology companies
-- 24K+ LinkedIn followers
-
-## Connect
-
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?style=flat-square&logo=linkedin&logoColor=white)](https://linkedin.com/in/cowdrey)
-[![Website](https://img.shields.io/badge/-eveoy.com-000000?style=flat-square&logo=safari&logoColor=white)](https://eveoy.com)
+<sub>[bradcowdrey.com](https://bradcowdrey.com) · [LinkedIn](https://www.linkedin.com/in/cowdrey/) · [X](https://x.com/bradcowdrey) · [Instagram](https://www.instagram.com/bradleycowdrey/)</sub>
