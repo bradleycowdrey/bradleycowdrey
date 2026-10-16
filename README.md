@@ -1,7 +1,7 @@
 <a href="https://bradcowdrey.com">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.png">
-    <img src="assets/banner-light.png" alt="Bradley Cowdrey. Founder. Operator. Always learning. I'm building Eveoy. Let’s help you build bigger, too. bradcowdrey.com" width="100%">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.jpg">
+    <img src="assets/banner-light.jpg" alt="Bradley Cowdrey, smiling in front of a mural. Founder. Operator. Always learning. bradcowdrey.com" width="100%">
   </picture>
 </a>
 
