@@ -8,7 +8,7 @@ struct MeridianApp: App {
     var body: some Scene {
         MenuBarExtra {
             ClockPanel(compact: true)
-                .frame(width: 520)
+                .frame(width: 680)
                 .environmentObject(store)
         } label: {
             MenuBarLabel().environmentObject(store)
@@ -19,12 +19,12 @@ struct MeridianApp: App {
         Window(Brand.appName, id: "strip") {
             ClockPanel()
                 .environmentObject(store)
-                .frame(minWidth: 560, minHeight: 260)
+                .frame(minWidth: 760, minHeight: 320)
                 .background(WindowConfigurator(floatOnTop: store.floatOnTop))
         }
         .windowStyle(.hiddenTitleBar)
         .windowResizability(.contentSize)
-        .defaultSize(width: 760, height: 360)
+        .defaultSize(width: 960, height: 440)
 
         Settings {
             SettingsView().environmentObject(store)

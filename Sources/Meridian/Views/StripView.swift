@@ -5,13 +5,17 @@ import AppKit
 /// so "now" (or any travelled-to hour) reads as one straight line down the centre.
 struct StripView: View {
     @EnvironmentObject private var store: ZoneStore
-    var cellWidth: CGFloat = 36
-    var rowHeight: CGFloat = 34
-    var labelWidth: CGFloat = 136
+    var cellWidth: CGFloat = 52
+    var rowHeight: CGFloat = 48
+    var labelWidth: CGFloat = 176
+    var editing = false
 
     @State private var drag: CGFloat = 0
-    private let rowSpacing: CGFloat = 6
-    private let overlapRowHeight: CGFloat = 10
+    private let rowSpacing = Space.s
+    private let cellGap = Space.xs
+    private let overlapRowHeight: CGFloat = 12
+
+    private var pitch: CGFloat { rowHeight + rowSpacing }
 
     var body: some View {
         GeometryReader { geo in
@@ -27,31 +31,32 @@ struct StripView: View {
                 VStack(alignment: .leading, spacing: rowSpacing) {
                     Color.clear.frame(height: overlapRowHeight)
                     ForEach(store.places) { place in
-                        PlaceLabel(place: place, moment: moment, showMinutes: base == 0)
-                            .frame(width: labelWidth - 10, height: rowHeight, alignment: .leading)
+                        PlaceLabel(place: place, moment: moment, editing: editing, pitch: pitch)
+                            .frame(width: labelWidth - Space.l, height: rowHeight, alignment: .leading)
                     }
                 }
                 .frame(width: labelWidth, alignment: .leading)
 
-                ZStack {
+                ZStack(alignment: .top) {
                     VStack(spacing: rowSpacing) {
-                        HStack(spacing: 2) {
+                        HStack(spacing: cellGap) {
                             ForEach((base - half)...(base + half), id: \.self) { index in
-                                OverlapDot(isOverlap: allWorking(at: anchor.addingTimeInterval(Double(index) * 3600)))
-                                    .frame(width: cellWidth - 2, height: overlapRowHeight)
+                                OverlapMark(isOverlap: allWorking(at: anchor.addingTimeInterval(Double(index) * 3600)))
+                                    .frame(width: cellWidth - cellGap, height: overlapRowHeight)
                             }
                         }
                         ForEach(store.places) { place in
-                            HStack(spacing: 2) {
+                            HStack(spacing: cellGap) {
                                 ForEach((base - half)...(base + half), id: \.self) { index in
+                                    let date = anchor.addingTimeInterval(Double(index) * 3600)
                                     HourCell(
-                                        date: anchor.addingTimeInterval(Double(index) * 3600),
+                                        date: date,
                                         zone: place.timeZone,
                                         use24h: store.use24h,
-                                        dimmed: store.showWorkHours && !store.isWorkHour(hour(anchor.addingTimeInterval(Double(index) * 3600), place.timeZone)),
+                                        dimmed: store.showWorkHours && !store.isWorkHour(hour(date, place.timeZone)),
                                         isCenter: index == base
                                     )
-                                    .frame(width: cellWidth - 2, height: rowHeight)
+                                    .frame(width: cellWidth - cellGap, height: rowHeight)
                                     .contentShape(Rectangle())
                                     .onTapGesture { store.travel(index - store.offsetHours) }
                                 }
@@ -62,15 +67,14 @@ struct StripView: View {
                     .frame(width: stripWidth)
 
                     // The "now" lens.
-                    RoundedRectangle(cornerRadius: 10, style: .continuous)
-                        .fill(.white.opacity(0.08))
+                    RoundedRectangle(cornerRadius: 12, style: .continuous)
+                        .fill(.white.opacity(0.06))
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10, style: .continuous)
-                                .strokeBorder(.white.opacity(0.9), lineWidth: 2)
+                            RoundedRectangle(cornerRadius: 12, style: .continuous)
+                                .strokeBorder(.white, lineWidth: 2)
                         )
-                        .shadow(color: .white.opacity(0.25), radius: 6)
-                        .frame(width: cellWidth + 4)
-                        .padding(.top, overlapRowHeight)
+                        .frame(width: cellWidth + Space.xs, height: CGFloat(store.places.count) * pitch)
+                        .padding(.top, overlapRowHeight + rowSpacing / 2)
                         .allowsHitTesting(false)
                 }
                 .frame(width: stripWidth)
@@ -79,8 +83,8 @@ struct StripView: View {
                     LinearGradient(
                         stops: [
                             .init(color: .clear, location: 0),
-                            .init(color: .black, location: 0.08),
-                            .init(color: .black, location: 0.92),
+                            .init(color: .black, location: 0.06),
+                            .init(color: .black, location: 0.94),
                             .init(color: .clear, location: 1),
                         ],
                         startPoint: .leading, endPoint: .trailing
@@ -100,7 +104,7 @@ struct StripView: View {
                 .onScrollWheel { delta in store.travel(delta) }
             }
         }
-        .frame(height: overlapRowHeight + CGFloat(store.places.count) * (rowHeight + rowSpacing))
+        .frame(height: overlapRowHeight + CGFloat(store.places.count) * pitch + rowSpacing / 2)
     }
 
     private func hour(_ date: Date, _ zone: TimeZone) -> Int {
@@ -119,35 +123,66 @@ private struct PlaceLabel: View {
     @EnvironmentObject private var store: ZoneStore
     let place: Place
     let moment: Date
-    let showMinutes: Bool
+    let editing: Bool
+    let pitch: CGFloat
+
+    @State private var dragStartIndex: Int?
 
     var body: some View {
         let shift = TimeMath.dayShift(moment, zone: place.timeZone)
-        VStack(alignment: .leading, spacing: 1) {
-            HStack(spacing: 5) {
+        HStack(spacing: Space.s) {
+            if editing {
+                Image(systemName: "line.3.horizontal")
+                    .font(.system(size: 13, weight: .medium))
+                    .foregroundStyle(Palette.textFaint)
+                    .frame(width: 20, height: 32)
+                    .contentShape(Rectangle())
+                    .help("Drag to reorder")
+                    .gesture(reorderGesture)
+                    .onHover { inside in
+                        if inside { NSCursor.openHand.push() } else { NSCursor.pop() }
+                    }
+            }
+            VStack(alignment: .leading, spacing: 2) {
                 Text(place.name)
-                    .font(.system(size: 13, weight: .semibold))
+                    .font(TypeScale.body)
+                    .foregroundStyle(Palette.textPrimary)
                     .lineLimit(1)
-                if place.id == store.menuBarPlace?.id, store.menuBarStyle == .cityTime {
-                    Image(systemName: "menubar.rectangle").font(.system(size: 9)).opacity(0.6)
+                HStack(spacing: 6) {
+                    Text(TimeMath.time(moment, in: place.timeZone, use24h: store.use24h))
+                        .foregroundStyle(Palette.textSecondary)
+                        .monospacedDigit()
+                    if shift != 0 {
+                        Text(shift > 0 ? "+1 day" : "−1 day")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundStyle(Palette.cream)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 1)
+                            .overlay(Capsule().strokeBorder(Palette.border))
+                    } else {
+                        Text(place.offsetLabel(at: moment))
+                            .foregroundStyle(Palette.textFaint)
+                    }
                 }
+                .font(TypeScale.meta)
+                .lineLimit(1)
             }
-            HStack(spacing: 4) {
-                Text(TimeMath.time(moment, in: place.timeZone, use24h: store.use24h))
-                    .monospacedDigit()
-                if shift != 0 {
-                    Text(shift > 0 ? "+1 day" : "−1 day")
-                        .font(.system(size: 9, weight: .bold))
-                        .padding(.horizontal, 4)
-                        .padding(.vertical, 1)
-                        .background(Capsule().fill(.white.opacity(0.15)))
+            Spacer(minLength: 0)
+            if editing {
+                Button {
+                    withAnimation(.snappy) { store.remove(place) }
+                } label: {
+                    Image(systemName: "minus.circle.fill")
+                        .font(.system(size: 17))
+                        .symbolRenderingMode(.palette)
+                        .foregroundStyle(.white, Palette.crimson)
+                        .frame(width: 28, height: 28)
+                        .contentShape(Rectangle())
                 }
-                Text(place.offsetLabel(at: moment)).opacity(0.6)
+                .buttonStyle(.plain)
+                .help("Remove \(place.name)")
             }
-            .font(.system(size: 10, weight: .medium))
-            .foregroundStyle(.white.opacity(0.75))
         }
-        .foregroundStyle(.white)
         .contextMenu {
             Button("Show in Menu Bar") {
                 store.menuBarPlaceID = place.id
@@ -155,6 +190,23 @@ private struct PlaceLabel: View {
             }
             Button("Remove", role: .destructive) { store.remove(place) }
         }
+    }
+
+    /// Live drag-to-reorder: rows swap as the handle crosses each row boundary.
+    private var reorderGesture: some Gesture {
+        DragGesture(minimumDistance: 2, coordinateSpace: .global)
+            .onChanged { value in
+                guard let current = store.places.firstIndex(where: { $0.id == place.id }) else { return }
+                let start = dragStartIndex ?? current
+                if dragStartIndex == nil { dragStartIndex = current }
+                let target = min(max(start + Int((value.translation.height / pitch).rounded()), 0), store.places.count - 1)
+                if target != current {
+                    withAnimation(.snappy(duration: 0.2)) {
+                        store.move(from: IndexSet(integer: current), to: target > current ? target + 1 : target)
+                    }
+                }
+            }
+            .onEnded { _ in dragStartIndex = nil }
     }
 }
 
@@ -173,26 +225,27 @@ private struct HourCell: View {
         let minute = parts.minute ?? 0
         let style = DayColor.style(at: Double(hour) + Double(minute) / 60)
 
-        return VStack(spacing: 0) {
+        return VStack(spacing: 1) {
             hourText(hour: hour, minute: minute)
-                .font(.system(size: 12, weight: isCenter ? .bold : .medium, design: .rounded))
+                .font(TypeScale.cell)
                 .monospacedDigit()
             if hour == 0 {
                 Text(TimeMath.weekday(date, in: zone))
-                    .font(.system(size: 7, weight: .heavy))
+                    .font(.system(size: 10, weight: .medium))
                     .textCase(.uppercase)
+                    .tracking(0.6)
             }
         }
         .foregroundStyle(style.text)
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(
-            RoundedRectangle(cornerRadius: 6, style: .continuous)
-                .fill(style.fill.opacity(dimmed ? 0.62 : 1))
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(style.fill.opacity(dimmed ? 0.72 : 1))
         )
         .overlay(alignment: .leading) {
             // Midnight divider: a new day starts here.
             if hour == 0 {
-                Capsule().fill(.white.opacity(0.85)).frame(width: 2).padding(.vertical, 4).offset(x: -2)
+                Capsule().fill(Palette.crimson).frame(width: 2).padding(.vertical, Space.s).offset(x: -3)
             }
         }
     }
@@ -204,55 +257,62 @@ private struct HourCell: View {
             main = String(format: "%02d", hour)
         } else {
             main = "\(hour % 12 == 0 ? 12 : hour % 12)"
-            suffix = hour < 12 ? "a" : "p"
+            suffix = hour < 12 ? "am" : "pm"
         }
         var text = Text(main)
-        if minute != 0 { text = text + Text(":\(String(format: "%02d", minute))").font(.system(size: 7, weight: .bold)) }
-        if !suffix.isEmpty { text = text + Text(suffix).font(.system(size: 8, weight: .semibold)) }
+        if minute != 0 { text = text + Text(":\(String(format: "%02d", minute))").font(.system(size: 11, weight: .medium)) }
+        if !suffix.isEmpty { text = text + Text(suffix).font(.system(size: 10, weight: .medium)) }
         return text
     }
 }
 
-private struct OverlapDot: View {
+private struct OverlapMark: View {
     let isOverlap: Bool
 
     var body: some View {
-        Circle()
-            .fill(isOverlap ? Color(red: 0.45, green: 0.95, blue: 0.6) : .clear)
-            .frame(width: 5, height: 5)
-            .shadow(color: .green.opacity(isOverlap ? 0.8 : 0), radius: 3)
+        Capsule()
+            .fill(isOverlap ? Palette.cream : .clear)
+            .frame(width: 16, height: 3)
             .help(isOverlap ? "Everyone is in working hours" : "")
     }
 }
 
-/// Colour of the sky through the day: night navy, dawn mauve and peach, day sand, dusk orange.
+/// Sky through the day in bradcowdrey.com tones: warm black at night, warm greys at twilight,
+/// cream in daylight.
 enum DayColor {
-    private static let stops: [(Double, (Double, Double, Double))] = [
-        (0, (0.13, 0.14, 0.32)),
-        (5, (0.15, 0.16, 0.38)),
-        (6.5, (0.52, 0.34, 0.56)),
-        (7.5, (0.93, 0.58, 0.44)),
-        (9, (0.98, 0.81, 0.60)),
-        (16, (0.98, 0.81, 0.60)),
-        (18, (0.95, 0.60, 0.40)),
-        (19.5, (0.60, 0.36, 0.56)),
-        (21, (0.24, 0.21, 0.47)),
-        (24, (0.13, 0.14, 0.32)),
+    private static let stops: [(Double, UInt32)] = [
+        (0, 0x22201C),
+        (5, 0x26231F),
+        (6.5, 0x4A4540),
+        (8, 0xB0A898),
+        (9.5, 0xE0D8D0),
+        (12, 0xFFF1E5),
+        (15, 0xFFF1E5),
+        (17.5, 0xE0D8D0),
+        (19, 0x807870),
+        (20.5, 0x3A3530),
+        (22, 0x2A2520),
+        (24, 0x22201C),
     ]
 
     static func style(at hour: Double) -> (fill: Color, text: Color) {
         let h = hour.truncatingRemainder(dividingBy: 24)
-        var rgb = stops[0].1
+        var rgb = components(stops[0].1)
         for i in 0..<(stops.count - 1) where h >= stops[i].0 && h <= stops[i + 1].0 {
-            let (h0, a) = stops[i]
-            let (h1, b) = stops[i + 1]
-            let t = h1 == h0 ? 0 : (h - h0) / (h1 - h0)
+            let a = components(stops[i].1)
+            let b = components(stops[i + 1].1)
+            let span = stops[i + 1].0 - stops[i].0
+            let t = span == 0 ? 0 : (h - stops[i].0) / span
             rgb = (a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t, a.2 + (b.2 - a.2) * t)
             break
         }
         let luminance = 0.299 * rgb.0 + 0.587 * rgb.1 + 0.114 * rgb.2
-        let text = luminance > 0.6 ? Color(red: 0.2, green: 0.13, blue: 0.1) : Color.white
+        let text = luminance > 0.55 ? Palette.bg : Palette.textSecondary
         return (Color(red: rgb.0, green: rgb.1, blue: rgb.2), text)
+    }
+
+    private static func components(_ hex: UInt32) -> (Double, Double, Double) {
+        (Double((hex >> 16) & 0xFF) / 255, Double((hex >> 8) & 0xFF) / 255, Double(hex & 0xFF) / 255)
     }
 }
 
@@ -294,9 +354,9 @@ private struct ScrollWheelCatcher: NSViewRepresentable {
                 guard self.bounds.contains(point) else { return event }
                 let delta = abs(event.scrollingDeltaX) > abs(event.scrollingDeltaY) ? -event.scrollingDeltaX : event.scrollingDeltaY
                 self.accumulated += event.hasPreciseScrollingDeltas ? delta : delta * 12
-                if abs(self.accumulated) >= 24 {
-                    let steps = Int(self.accumulated / 24)
-                    self.accumulated -= CGFloat(steps) * 24
+                if abs(self.accumulated) >= 32 {
+                    let steps = Int(self.accumulated / 32)
+                    self.accumulated -= CGFloat(steps) * 32
                     self.action?(steps)
                 }
                 return nil

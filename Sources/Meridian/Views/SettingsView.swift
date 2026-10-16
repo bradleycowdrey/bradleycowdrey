@@ -44,7 +44,7 @@ private struct CitiesSettings: View {
                 .onMove { store.move(from: $0, to: $1) }
             }
             .listStyle(.bordered)
-            Text("Drag to reorder. Click a name to rename it. Add cities with + in the menu bar.")
+            Text("Drag to reorder. Click a name to rename it. You can also add, remove and reorder cities with Add and Edit in the menu bar.")
                 .font(.caption)
                 .foregroundStyle(.secondary)
         }

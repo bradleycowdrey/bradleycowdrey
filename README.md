@@ -20,8 +20,9 @@ instant everywhere, so the line through the middle is *now*.
 
 - **Day/night ribbons**: night navy, dawn peach, daylight sand and dusk orange, one row per city.
 - **Time travel**: drag the strip, scroll, press ← →, or click any hour. **Now** snaps back.
-- **Meeting overlap**: a green dot marks hours when every city is inside working hours.
+- **Meeting overlap**: a cream mark shows hours when every city is inside working hours.
 - **Copy the moment**: one click copies the selected time for every city, ready to paste into a chat or invite.
+- **Easy to manage**: **Add** opens search right in the panel; **Edit** shows a delete button and a drag handle on every city.
 - **Fast search**: city names, airport codes (`SFO`, `LHR`), abbreviations (`PST`, `CET`) or offsets (`UTC+5:30`).
 - **The details**: day-change markers, half-hour and 45-minute zones, a `+1 day` badge, 12/24-hour time, custom city names, drag to reorder.
 - **Menu bar first**: show an icon, or a city and its time (`LON 14:32`). Open it as a desktop window that can float above everything.
@@ -38,7 +39,7 @@ Meridian is distributed directly, not through the Mac App Store.
 2. Open the DMG and drag **Meridian** to **Applications**.
 3. First launch: if macOS says it can't verify the app, **right-click Meridian → Open → Open**, or run
    `xattr -dr com.apple.quarantine /Applications/Meridian.app`
-4. Look for the globe in your menu bar.
+4. Click the globe in your menu bar, then **Add** your cities.
 
 ## Build from source
 
