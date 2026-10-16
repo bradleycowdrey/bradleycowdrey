@@ -46,7 +46,7 @@ Requires Xcode 15.3+ (Swift 5.10) on macOS 14+.
 
 ```sh
 git clone https://github.com/bc101101/bc101101.git -b meridian
-cd meridian
+cd bc101101
 swift run                         # run in development
 scripts/build-app.sh 0.1.0        # dist/Meridian.app (universal)
 scripts/make-dmg.sh 0.1.0         # dist/Meridian-0.1.0.dmg
