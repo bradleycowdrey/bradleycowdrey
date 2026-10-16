@@ -6,7 +6,7 @@ A tiny, free, open-source world clock for your Mac's menu bar.<br>
 Made by <a href="https://bradcowdrey.com">Bradley Cowdrey · bradcowdrey.com</a></p>
 
 <p align="center">
-  <a href="https://github.com/bc101101/bc101101/releases/tag/meridian-v0.1.0"><b>Download for Mac</b></a> ·
+  <a href="https://github.com/bc101101/bc101101/releases/tag/meridian-v0.2.0"><b>Download for Mac</b></a> ·
   <a href="https://bradcowdrey.com/meridian">Website & live demo</a> ·
   <a href="https://github.com/bc101101/bc101101/issues">Report an issue</a>
 </p>
@@ -34,7 +34,7 @@ Native SwiftUI, universal binary (Apple silicon + Intel), macOS 14 Sonoma or lat
 
 Meridian is distributed directly, not through the Mac App Store.
 
-1. Download `Meridian-x.y.z.dmg` from [Releases](https://github.com/bc101101/bc101101/releases/tag/meridian-v0.1.0)
+1. Download `Meridian-x.y.z.dmg` from [Releases](https://github.com/bc101101/bc101101/releases/tag/meridian-v0.2.0)
    or [bradcowdrey.com/meridian](https://bradcowdrey.com/meridian).
 2. Open the DMG and drag **Meridian** to **Applications**.
 3. First launch: if macOS says it can't verify the app, **right-click Meridian → Open → Open**, or run
