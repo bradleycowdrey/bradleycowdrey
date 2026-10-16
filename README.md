@@ -3,11 +3,11 @@
 <h1 align="center">Meridian</h1>
 <p align="center"><b>Every time zone at a glance.</b><br>
 A tiny, free, open-source world clock for your Mac's menu bar.<br>
-Made by <a href="https://bradcowdrey.me">Brad Cowdrey · bradcowdrey.me</a></p>
+Made by <a href="https://bradcowdrey.com">Bradley Cowdrey · bradcowdrey.com</a></p>
 
 <p align="center">
   <a href="https://github.com/bc101101/meridian/releases/latest"><b>Download for Mac</b></a> ·
-  <a href="https://bradcowdrey.me/meridian">Website & live demo</a> ·
+  <a href="https://bradcowdrey.com/meridian">Website & live demo</a> ·
   <a href="https://github.com/bc101101/meridian/issues">Report an issue</a>
 </p>
 
@@ -34,7 +34,7 @@ Native SwiftUI, universal binary (Apple silicon + Intel), macOS 14 Sonoma or lat
 Meridian is distributed directly, not through the Mac App Store.
 
 1. Download `Meridian-x.y.z.dmg` from [Releases](https://github.com/bc101101/meridian/releases/latest)
-   or [bradcowdrey.me/meridian](https://bradcowdrey.me/meridian).
+   or [bradcowdrey.com/meridian](https://bradcowdrey.com/meridian).
 2. Open the DMG and drag **Meridian** to **Applications**.
 3. First launch: if macOS says it can't verify the app, **right-click Meridian → Open → Open**, or run
    `xattr -dr com.apple.quarantine /Applications/Meridian.app`
@@ -79,4 +79,4 @@ docs/                     Download page with a live web demo
 
 ## License
 
-MIT © 2026 Brad Cowdrey · [bradcowdrey.me](https://bradcowdrey.me)
+MIT © 2026 Bradley Cowdrey · [bradcowdrey.com](https://bradcowdrey.com)
