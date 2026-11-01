@@ -35,6 +35,15 @@ Along the way, thousands of AI questions have landed in my DMs and inbox. I love
 
 The practical side: AI skills, prompts, and small tools I use myself and share as they’re ready. An **AI skill** is a reusable set of instructions that helps AI do a specific job. Learn it once, adapt it to your business, and use it again.
 
+<sub>FREE APPS I’VE MADE</sub>
+
+Small, free, open-source apps for Mac, iPhone, Android and the web. No ads, no accounts, no tracking.
+
+- 🧭 **[Bearings](https://github.com/bradleycowdrey/bearings)** · Get your bearings. The compass, where you are, your coordinates and elevation, the sun and moon, and a map, on one screen. *New.*
+- 🌡️ **[Two Degrees](https://bradcowdrey.com/two-degrees)** · The weather in °F and °C at once.
+- 🕘 **[Meridian](https://bradcowdrey.com/meridian)** · A world clock and time-zone planner.
+- 📝 **[Cowdrey.MD](https://bradcowdrey.com/cowdrey-md)** · A clean Markdown editor.
+
 <sub>THE QUESTIONS I HEAR MOST</sub>
 
 | “What if AI gets it wrong?” | “Why doesn’t it sound like us?” | “Why does it forget my business?” |
