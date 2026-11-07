@@ -8,6 +8,7 @@ We're planning an original, side-scrolling motocross physics racer in the genre 
 
 1. **Study by playing, not by decompiling.** We observe, play, record and measure commercial games (MSM2, MSM3, the MSM2 web version on Poki) from legitimately obtained copies. We don't decompile, unpack or extract code or assets from them, and we don't download APKs from mirror sites.
 2. **Read open source for ideas, then write our own.** X-Moto (GPL-2.0+) and the published Elasto Mania / Action SuperCross source can be read to understand mechanisms. No code, data or assets get copied from them into our project. Their licences forbid it (Elma/Across) or would make our game GPL (X-Moto).
+   - **Elasto Mania is stricter.** Its licence also forbids commercial use of its *algorithms and mathematical formulas*. Our notes on it record only observable behaviour and general lessons. Whoever implements our physics works from our spec, Box2D and textbooks, not from the Elma source.
 3. **Box2D (MIT) is a candidate dependency.** Using it as a library is fine.
 4. **The game is original.** No reuse of MSM's name, characters, art, tracks, UI look or audio. We match how the game *feels* (behaviour), not how it looks or how it's coded.
 
@@ -22,4 +23,4 @@ We're planning an original, side-scrolling motocross physics racer in the genre 
 | 05 | [Play-test protocol](research/05-playtest-protocol.md) | How the team measures MSM2/MSM3 "feel" on their own devices |
 | 06 | [Findings and spec inputs](research/06-findings-and-spec-inputs.md) | Synthesis: decisions the spec needs to make, with recommendations |
 
-_Status: 01, 04 and 05 are written. 02, 03 and 06 are in progress while the source studies finish._
+**Status:** research complete. Next comes the team play-tests (05), the product decisions (06 D17–D20), and then Spec v0.1.
